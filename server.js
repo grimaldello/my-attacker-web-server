@@ -14,13 +14,13 @@ http.createServer((req, res) => {
     const parsedRequest = RequestParser.parseRequest(req);
     parsedRequest.then((result) => {
 
-        switch (Settings.CurrentMode) {
-            case 'LISTENING':
-                Modes.listeningMode(result);
+        switch (Settings.ApplicationMode) {
+            case Modes.Types.LISTENING_MODE:
+                Modes.ListeningMode.execute(result);
                 break;
         
             default:
-                Modes.listeningMode(result);
+                Modes.ListeningMode.execute(result);
                 break;
         }
 
