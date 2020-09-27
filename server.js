@@ -17,6 +17,16 @@ http.createServer((req, res) => {
         switch (Settings.ApplicationMode) {
             case Modes.Types.LISTENING_MODE:
                 Modes.ListeningMode.execute(result);
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'text/html');
+                res.end(`OK\n`);
+                break;
+
+            case Modes.Types.WEB_SERVER:
+                let htmlPage = Modes.WebServerMode.execute(result);
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'text/html');
+                res.end(htmlPage);
                 break;
         
             default:
@@ -24,11 +34,10 @@ http.createServer((req, res) => {
                 break;
         }
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        res.end(`OK\n`);
+
     });
 
 }).listen(Settings.ListenPort, Settings.ListenIPAddres, () => {
+    console.log(`Current Application Mode is: ${Settings.ApplicationMode}`);
     console.log(`Server listening on ${Settings.ListenIPAddres}:${Settings.ListenPort}...`);
 });

