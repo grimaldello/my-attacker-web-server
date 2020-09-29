@@ -1,5 +1,6 @@
 const Modes = require('./modes.js');
 
+exports.ApplicationMode = Modes.Types.XXE_OOB_MODE;
 exports.ListenIPAddres = "0.0.0.0";
-exports.ListenPort = 8080;
-exports.ApplicationMode = Modes.Types.WEB_SERVER;
+exports.ListenPort = 9090;
+
